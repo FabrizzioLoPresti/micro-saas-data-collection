@@ -1,52 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Suspense, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { useQuestionsStore } from "@/store/questionsStore";
-import Spinner from "../Layout/spinner";
-import { QuestionType } from "@/types/types";
+import Question from "./question";
 
 type Props = {};
-
-const Question = ({ questionInfo }: { questionInfo: QuestionType }) => {
-  const selectAnswer = useQuestionsStore((state) => state.selectAnswer);
-
-  const handleSelectAnswer = (answerIndex: number) => () => {
-    selectAnswer(questionInfo.id, answerIndex);
-  };
-
-  return (
-    <div className="space-y-8">
-      <h4 className="text-blue-800 font-bold text-2xl text-center">
-        {questionInfo.question}
-      </h4>
-
-      <div>
-        <RadioGroup>
-          <ul className="[&>li]:border-t-2 [&>li:nth-child(odd)]:border-t-blue-800 [&>li:nth-child(even)]:border-t-blue-200">
-            {questionInfo.options.map((option, index) => (
-              <li
-                className="py-3 px-6 flex items-center gap-x-2"
-                key={index}
-                onClick={handleSelectAnswer(index)}
-              >
-                <RadioGroupItem
-                  value={index.toString()}
-                  id={index.toString()}
-                  checked={questionInfo.answerSelected === index}
-                />
-                <Label htmlFor={index.toString()}>{option}</Label>
-              </li>
-            ))}
-          </ul>
-        </RadioGroup>
-      </div>
-    </div>
-  );
-};
 
 const FormComponent = () => {
   const fetchQuestions = useQuestionsStore((state) => state.fetchQuestions);
@@ -59,7 +19,7 @@ const FormComponent = () => {
     fetchQuestions();
   }, []);
 
-  if (questions.length === 0) return <Spinner />;
+  // if (questions.length === 0) return <Spinner />;
 
   const questionInfo = questions[currentQuestion];
 

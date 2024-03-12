@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { type QuestionType } from "@/types/types";
 import { questions as questionData } from "@/libs/data";
+import { persist } from "zustand/middleware";
+import { getAllQuestions } from "@/services/questions";
 
 type Store = {
   questions: QuestionType[];
@@ -12,14 +14,13 @@ type Store = {
   selectAnswer: (questionId: number, indexAnswer: number) => void;
 }
 
-export const useQuestionsStore = create<Store>((set, get) => ({
+export const useQuestionsStore = create<Store>()(persist((set, get) => ({
   questions: [],
   currentQuestion: 0,
 
   fetchQuestions: async () => {
     // Fetch de preguntas
-    const res = await fetch("http://localhost:3000/data.json");
-    const {questions} = await res.json();
+    const questions = await getAllQuestions()
     set({ questions });
   },
 
@@ -63,4 +64,6 @@ export const useQuestionsStore = create<Store>((set, get) => ({
     // Actualizar el estado con las preguntas modificadas -> 1:02:04
     set({ questions: newQuestions });
   }
+}), {
+  name: "questions-store",
 }));

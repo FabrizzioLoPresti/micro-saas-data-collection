@@ -10,17 +10,17 @@ import { QuestionType } from "@/types/types";
 
 type Props = {};
 
-const FormComponent = ({ questionsApi }: { questionsApi: QuestionType[] }) => {
-  const setQuestions = useQuestionsStore((state) => state.setQuestions);
+const FormComponent = () => {
   const questions = useQuestionsStore((state) => state.questions);
+  const fetchQuestions = useQuestionsStore((state) => state.fetchQuestions);
 
   const currentQuestion = useQuestionsStore((state) => state.currentQuestion);
   const nextQuestion = useQuestionsStore((state) => state.nextQuestion);
   const prevQuestion = useQuestionsStore((state) => state.prevQuestion);
 
   useEffect(() => {
-    setQuestions(questionsApi);
-  }, [questionsApi, setQuestions]);
+    fetchQuestions();
+  }, []);
 
   if (questions.length === 0) return <Spinner />;
 

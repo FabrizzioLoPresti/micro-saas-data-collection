@@ -12,7 +12,7 @@ const getQuestions = async () => {
 
 const FormComponentAsync = async (props: Props) => {
   const questionsApi = await getQuestions();
-  return <FormComponent questionsApi={questionsApi} />;
+  return <FormComponent />;
 };
 
 export default FormComponentAsync;

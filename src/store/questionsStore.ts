@@ -20,8 +20,10 @@ export const useQuestionsStore = create<Store>()(persist((set, get) => ({
 
   fetchQuestions: async () => {
     // Fetch de preguntas
-    const questions = await getAllQuestions()
-    set({ questions });
+    if(get().questions.length === 0) {
+      const questions = await getAllQuestions();
+      set({ questions });
+    }
   },
 
   setQuestions: (questions) => {
@@ -65,5 +67,5 @@ export const useQuestionsStore = create<Store>()(persist((set, get) => ({
     set({ questions: newQuestions });
   }
 }), {
-  name: "questions-store",
+  name: "questions-store"
 }));

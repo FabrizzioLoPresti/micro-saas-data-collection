@@ -5,21 +5,24 @@ import { Button } from "@/components/ui/button";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { useQuestionsStore } from "@/store/questionsStore";
 import Question from "./question";
+import Spinner from "../Layout/spinner";
+import { QuestionType } from "@/types/types";
 
 type Props = {};
 
-const FormComponent = () => {
-  const fetchQuestions = useQuestionsStore((state) => state.fetchQuestions);
+const FormComponent = ({ questionsApi }: { questionsApi: QuestionType[] }) => {
+  const setQuestions = useQuestionsStore((state) => state.setQuestions);
   const questions = useQuestionsStore((state) => state.questions);
+
   const currentQuestion = useQuestionsStore((state) => state.currentQuestion);
   const nextQuestion = useQuestionsStore((state) => state.nextQuestion);
   const prevQuestion = useQuestionsStore((state) => state.prevQuestion);
 
   useEffect(() => {
-    fetchQuestions();
-  }, []);
+    setQuestions(questionsApi);
+  }, [questionsApi, setQuestions]);
 
-  // if (questions.length === 0) return <Spinner />;
+  if (questions.length === 0) return <Spinner />;
 
   const questionInfo = questions[currentQuestion];
 

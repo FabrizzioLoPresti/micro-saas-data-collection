@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import FormComponent from "./form";
 
 type Props = {};
@@ -10,9 +11,11 @@ const getQuestions = async () => {
   return questions;
 };
 
-const FormComponentAsync = async (props: Props) => {
-  const questionsApi = await getQuestions();
-  return <FormComponent />;
-};
+// const FormComponentAsync = async (props: Props) => {
+//   const questionsApi = await getQuestions();
+//   return <FormComponent />;
+// };
+
+const FormComponentAsync = lazy(() => import("./form"));
 
 export default FormComponentAsync;

@@ -16,5 +16,5 @@ export default async function FormPage({}: Props) {
 }
 
 // https://react.dev/reference/react/Suspense - https://react.dev/reference/react/lazy - https://react.dev/reference/react/useOptimistic - https://react.dev/learn/reusing-logic-with-custom-hooks
-// !4. LocalStorage almacenar valor seleccionado del indice de la respuesta -> si funciona pero el llamado a la api me refresca sel setQuestions, Midulive no tenia este probema pq la llamada se hacia por un boton
+// !4. Solucionado LocalStorage en fetchQuestions de Zustand Store, solo afalta agregar el Spinner con Suspense y lazy
 // !5. Redux DevTools nombrar acciones y testing con Cypress

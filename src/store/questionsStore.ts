@@ -31,7 +31,7 @@ export const useQuestionsStore = create<Store>()(persist((set, get) => ({
   },
   nextQuestion: () => {
     // Logica para ir a la siguiente pregunta
-    if (get().currentQuestion < get().questions.length - 1) {
+    if (get().currentQuestion <= get().questions.length - 1) {
       set({
         currentQuestion: get().currentQuestion + 1
       })

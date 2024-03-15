@@ -16,6 +16,10 @@ const getQuestions = async () => {
 //   return <FormComponent />;
 // };
 
-const FormComponentAsync = lazy(() => import("./form"));
+// const FormComponentAsync = lazy(() => import("./form"));
+
+const FormComponentAsync = async () => {
+  return <FormComponent />;
+};
 
 export default FormComponentAsync;
